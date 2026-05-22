@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>加载中</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f7fb;
+        --panel: rgba(255, 255, 255, 0.82);
+        --text: #172033;
+        --muted: #657189;
+        --primary: #1664d9;
+        --accent: #17a68b;
+        --warning: #f2a43a;
+        --track: #dce4ef;
+        --shadow: 0 24px 70px rgba(32, 50, 82, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100%;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 18% 20%, rgba(22, 100, 217, 0.12), transparent 28%),
+          radial-gradient(circle at 82% 76%, rgba(23, 166, 139, 0.14), transparent 30%),
+          linear-gradient(135deg, #eef3fa 0%, var(--bg) 48%, #edf7f4 100%);
+        color: var(--text);
+        font-family:
+          Inter, "PingFang SC", "Microsoft YaHei", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .loading-page {
+        width: min(92vw, 520px);
+        padding: 48px 38px 42px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.86);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+      }
+
+      .loading-page::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translateX(-110%);
+        background: linear-gradient(
+          100deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.64) 42%,
+          transparent 72%
+        );
+        animation: sweep 2.8s ease-in-out infinite;
+      }
+
+      .loader {
+        width: 156px;
+        height: 156px;
+        margin: 0 auto 30px;
+        position: relative;
+      }
+
+      .loader-ring,
+      .loader-core,
+      .loader-pulse {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+      }
+
+      .loader-ring {
+        border: 7px solid rgba(22, 100, 217, 0.16);
+        border-top-color: var(--primary);
+        border-right-color: var(--accent);
+        animation: spin 1.1s linear infinite;
+      }
+
+      .loader-ring.secondary {
+        inset: 22px;
+        border-width: 5px;
+        border-color: rgba(23, 166, 139, 0.16);
+        border-bottom-color: var(--warning);
+        border-left-color: var(--accent);
+        animation-duration: 1.8s;
+        animation-direction: reverse;
+      }
+
+      .loader-pulse {
+        inset: 38px;
+        background: rgba(22, 100, 217, 0.08);
+        animation: pulse 1.7s ease-in-out infinite;
+      }
+
+      .loader-core {
+        inset: 55px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: 0 12px 28px rgba(22, 100, 217, 0.28);
+      }
+
+      .loader-core::before {
+        content: "";
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #fff;
+        animation: breathe 1.2s ease-in-out infinite;
+      }
+
+      .content {
+        position: relative;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(30px, 7vw, 46px);
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        margin: 14px auto 0;
+        max-width: 32rem;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 28px;
+        min-height: 28px;
+        color: #2e3a4f;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .dots {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .dots span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--primary);
+        animation: dot 1s ease-in-out infinite;
+      }
+
+      .dots span:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+
+      .dots span:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+
+      .progress {
+        height: 10px;
+        margin-top: 26px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: var(--track);
+      }
+
+      .progress-bar {
+        width: 42%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--primary), var(--accent), var(--warning));
+        animation: load 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+      }
+
+      .tips {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .decor-line {
+        position: absolute;
+        width: 220px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(22, 100, 217, 0.42), transparent);
+        animation: drift 5s ease-in-out infinite;
+      }
+
+      .decor-line.one {
+        top: 18%;
+        left: -90px;
+      }
+
+      .decor-line.two {
+        right: -110px;
+        bottom: 20%;
+        animation-delay: -2.2s;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(0.82);
+          opacity: 0.36;
+        }
+
+        50% {
+          transform: scale(1.14);
+          opacity: 0.74;
+        }
+      }
+
+      @keyframes breathe {
+        0%,
+        100% {
+          transform: scale(0.72);
+          opacity: 0.8;
+        }
+
+        50% {
+          transform: scale(1.12);
+          opacity: 1;
+        }
+      }
+
+      @keyframes dot {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.38;
+        }
+
+        50% {
+          transform: translateY(-7px);
+          opacity: 1;
+        }
+      }
+
+      @keyframes load {
+        0% {
+          transform: translateX(-110%);
+        }
+
+        55% {
+          transform: translateX(72%);
+        }
+
+        100% {
+          transform: translateX(245%);
+        }
+      }
+
+      @keyframes sweep {
+        0%,
+        42% {
+          transform: translateX(-110%);
+        }
+
+        78%,
+        100% {
+          transform: translateX(110%);
+        }
+      }
+
+      @keyframes drift {
+        0%,
+        100% {
+          transform: translateX(0);
+          opacity: 0.36;
+        }
+
+        50% {
+          transform: translateX(38px);
+          opacity: 0.86;
+        }
+      }
+
+      @media (max-width: 540px) {
+        .loading-page {
+          padding: 40px 24px 34px;
+        }
+
+        .loader {
+          width: 132px;
+          height: 132px;
+          margin-bottom: 24px;
+        }
+
+        .loader-pulse {
+          inset: 32px;
+        }
+
+        .loader-core {
+          inset: 47px;
+        }
+
+        .tips {
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="loading-page" aria-labelledby="loading-title">
+      <div class="decor-line one" aria-hidden="true"></div>
+      <div class="decor-line two" aria-hidden="true"></div>
+
+      <section class="content" aria-live="polite" aria-busy="true">
+        <div class="loader" role="img" aria-label="页面正在加载">
+          <div class="loader-ring" aria-hidden="true"></div>
+          <div class="loader-ring secondary" aria-hidden="true"></div>
+          <div class="loader-pulse" aria-hidden="true"></div>
+          <div class="loader-core" aria-hidden="true"></div>
+        </div>
+
+        <h1 id="loading-title">加载中</h1>
+        <p class="subtitle">正在准备页面内容，请稍候片刻。</p>
+
+        <div class="status">
+          <span>系统处理中</span>
+          <span class="dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+
+        <div class="progress" aria-hidden="true">
+          <div class="progress-bar"></div>
+        </div>
+
+        <div class="tips" aria-hidden="true">
+          <span>安全连接</span>
+          <span>资源加载</span>
+          <span>界面渲染</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
