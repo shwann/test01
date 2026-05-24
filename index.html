@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>加载中</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09111f;
+      --panel: rgba(12, 21, 36, 0.72);
+      --text: #f4f7fb;
+      --muted: #9fb0c3;
+      --cyan: #36d6d9;
+      --green: #86efac;
+      --amber: #fbbf24;
+      --line: rgba(255, 255, 255, 0.14);
+      --shadow: rgba(0, 0, 0, 0.38);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 16% 18%, rgba(54, 214, 217, 0.2), transparent 28%),
+        radial-gradient(circle at 82% 74%, rgba(251, 191, 36, 0.16), transparent 30%),
+        linear-gradient(135deg, #09111f 0%, #102239 48%, #0e1726 100%);
+    }
+
+    .stage {
+      position: relative;
+      width: min(88vw, 560px);
+      padding: 56px clamp(24px, 6vw, 56px);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 24px 80px var(--shadow);
+      backdrop-filter: blur(22px);
+      text-align: center;
+      isolation: isolate;
+    }
+
+    .stage::before,
+    .stage::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .stage::before {
+      z-index: -1;
+      background: linear-gradient(120deg, transparent 0 18%, rgba(54, 214, 217, 0.32), transparent 44% 100%);
+      animation: panel-sheen 3.6s ease-in-out infinite;
+    }
+
+    .stage::after {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .loader {
+      position: relative;
+      width: 156px;
+      aspect-ratio: 1;
+      margin: 0 auto 34px;
+    }
+
+    .orbit {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: spin 2.8s linear infinite;
+    }
+
+    .orbit:nth-child(2) {
+      inset: 18px;
+      animation-duration: 2.1s;
+      animation-direction: reverse;
+      border-top-color: rgba(134, 239, 172, 0.76);
+    }
+
+    .orbit:nth-child(3) {
+      inset: 36px;
+      animation-duration: 1.55s;
+      border-right-color: rgba(251, 191, 36, 0.82);
+    }
+
+    .orbit::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: var(--cyan);
+      box-shadow: 0 0 22px rgba(54, 214, 217, 0.75);
+    }
+
+    .orbit:nth-child(2)::before {
+      width: 11px;
+      height: 11px;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(134, 239, 172, 0.7);
+    }
+
+    .orbit:nth-child(3)::before {
+      width: 9px;
+      height: 9px;
+      background: var(--amber);
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.7);
+    }
+
+    .core {
+      position: absolute;
+      inset: 55px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(244, 247, 251, 0.08);
+      box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.08);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    .core span {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--text);
+      box-shadow: 0 0 24px rgba(244, 247, 251, 0.8);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 7vw, 56px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      min-height: 28px;
+      margin: 18px 0 34px;
+      color: var(--muted);
+      font-size: clamp(15px, 3vw, 18px);
+      line-height: 1.6;
+    }
+
+    .progress {
+      width: min(100%, 380px);
+      height: 10px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .progress span {
+      display: block;
+      width: 52%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--green), var(--amber));
+      animation: load 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    }
+
+    .dots {
+      display: inline-grid;
+      grid-auto-flow: column;
+      gap: 6px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .dots i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+
+    .dots i:nth-child(2) {
+      animation-delay: 0.16s;
+    }
+
+    .dots i:nth-child(3) {
+      animation-delay: 0.32s;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.08);
+      }
+    }
+
+    @keyframes load {
+      0% {
+        transform: translateX(-120%);
+      }
+      55%,
+      100% {
+        transform: translateX(215%);
+      }
+    }
+
+    @keyframes blink {
+      0%,
+      80%,
+      100% {
+        opacity: 0.28;
+        transform: translateY(0);
+      }
+      40% {
+        opacity: 1;
+        transform: translateY(-4px);
+      }
+    }
+
+    @keyframes panel-sheen {
+      0%,
+      100% {
+        opacity: 0.28;
+        transform: translateX(-10%);
+      }
+      50% {
+        opacity: 0.7;
+        transform: translateX(10%);
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        overflow: auto;
+      }
+
+      .stage {
+        padding-block: 44px;
+      }
+
+      .loader {
+        width: 128px;
+        margin-bottom: 28px;
+      }
+
+      .core {
+        inset: 45px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      .progress span {
+        width: 72%;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-live="polite">
+    <div class="loader" aria-hidden="true">
+      <span class="orbit"></span>
+      <span class="orbit"></span>
+      <span class="orbit"></span>
+      <span class="core"><span></span></span>
+    </div>
+    <h1>页面加载中</h1>
+    <p class="subtitle">
+      <span id="status">正在初始化资源</span>
+      <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    </p>
+    <div class="progress" role="progressbar" aria-label="加载进度">
+      <span></span>
+    </div>
+  </main>
+
+  <script>
+    const messages = [
+      "正在初始化资源",
+      "正在同步页面数据",
+      "正在准备交互体验",
+      "即将完成加载"
+    ];
+
+    const status = document.getElementById("status");
+    let index = 0;
+
+    window.setInterval(() => {
+      index = (index + 1) % messages.length;
+      status.textContent = messages[index];
+    }, 1600);
+  </script>
+</body>
+</html>
