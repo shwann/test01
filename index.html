@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>公司门户首页</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" aria-label="主导航">
+        <a class="brand" href="#" aria-label="公司门户首页">
+          <span class="brand-mark">EP</span>
+          <span>
+            <strong>企业门户</strong>
+            <small>Enterprise Portal</small>
+          </span>
+        </a>
+
+        <nav class="nav-list">
+          <a class="nav-item active" href="#overview">总览</a>
+          <a class="nav-item" href="#apps">应用</a>
+          <a class="nav-item" href="#approvals">审批</a>
+          <a class="nav-item" href="#schedule">日程</a>
+          <a class="nav-item" href="#support">服务</a>
+        </nav>
+
+        <section class="sidebar-panel" aria-labelledby="security-title">
+          <p id="security-title" class="eyebrow">安全状态</p>
+          <strong>已启用统一身份认证</strong>
+          <span>本周 128 次异常登录已拦截</span>
+        </section>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">今日工作台</p>
+            <h1>欢迎回来，运营团队</h1>
+          </div>
+          <div class="topbar-actions">
+            <label class="search">
+              <span aria-hidden="true">⌕</span>
+              <input id="appSearch" type="search" placeholder="搜索系统、服务或文档">
+            </label>
+            <button class="icon-button" type="button" aria-label="通知">
+              <span aria-hidden="true">!</span>
+            </button>
+            <button class="avatar" type="button" aria-label="个人中心">HG</button>
+          </div>
+        </header>
+
+        <section id="overview" class="hero-section" aria-labelledby="portal-title">
+          <div class="hero-copy">
+            <p class="eyebrow">One-stop business workspace</p>
+            <h2 id="portal-title">把通知、应用、审批和服务放在同一个入口</h2>
+            <p>
+              面向员工的统一办公首页，快速进入常用系统，跟进待办任务，并掌握公司最新动态。
+            </p>
+            <div class="hero-actions">
+              <a class="primary-action" href="#apps">进入应用中心</a>
+              <a class="secondary-action" href="#support">提交服务请求</a>
+            </div>
+          </div>
+          <div class="portal-visual" aria-label="门户数据概览图">
+            <div class="visual-header">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="visual-body">
+              <div class="visual-menu"></div>
+              <div class="visual-main">
+                <div class="visual-line wide"></div>
+                <div class="visual-grid">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="visual-bars">
+                  <span style="height: 46%"></span>
+                  <span style="height: 68%"></span>
+                  <span style="height: 38%"></span>
+                  <span style="height: 82%"></span>
+                  <span style="height: 58%"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="metrics" aria-label="关键指标">
+          <article>
+            <span>待处理审批</span>
+            <strong>18</strong>
+            <small>较昨日 -6</small>
+          </article>
+          <article>
+            <span>系统可用率</span>
+            <strong>99.96%</strong>
+            <small>核心系统正常</small>
+          </article>
+          <article>
+            <span>本周知识访问</span>
+            <strong>3,248</strong>
+            <small>热门：报销流程</small>
+          </article>
+          <article>
+            <span>服务工单</span>
+            <strong>42</strong>
+            <small>平均响应 16 分钟</small>
+          </article>
+        </section>
+
+        <section class="workspace-grid">
+          <div class="main-column">
+            <section id="apps" class="section-block" aria-labelledby="apps-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Application Center</p>
+                  <h2 id="apps-title">常用应用</h2>
+                </div>
+                <div class="segmented" role="tablist" aria-label="应用分类">
+                  <button class="segment active" type="button" data-filter="all">全部</button>
+                  <button class="segment" type="button" data-filter="office">办公</button>
+                  <button class="segment" type="button" data-filter="hr">人事</button>
+                  <button class="segment" type="button" data-filter="finance">财务</button>
+                </div>
+              </div>
+
+              <div class="app-grid" id="appGrid">
+                <a class="app-card" href="#" data-category="office" data-name="OA协同办公">
+                  <span class="app-icon blue">OA</span>
+                  <strong>OA 协同办公</strong>
+                  <small>公告、流程、合同与用印</small>
+                </a>
+                <a class="app-card" href="#" data-category="hr" data-name="人力资源系统">
+                  <span class="app-icon green">HR</span>
+                  <strong>人力资源系统</strong>
+                  <small>考勤、假勤、员工档案</small>
+                </a>
+                <a class="app-card" href="#" data-category="finance" data-name="财务共享平台">
+                  <span class="app-icon amber">FN</span>
+                  <strong>财务共享平台</strong>
+                  <small>报销、预算、付款申请</small>
+                </a>
+                <a class="app-card" href="#" data-category="office" data-name="知识库">
+                  <span class="app-icon violet">KB</span>
+                  <strong>知识库</strong>
+                  <small>制度文档、操作手册</small>
+                </a>
+                <a class="app-card" href="#" data-category="office" data-name="项目管理">
+                  <span class="app-icon red">PM</span>
+                  <strong>项目管理</strong>
+                  <small>里程碑、风险、交付跟踪</small>
+                </a>
+                <a class="app-card" href="#" data-category="hr" data-name="学习中心">
+                  <span class="app-icon cyan">LC</span>
+                  <strong>学习中心</strong>
+                  <small>课程、考试、认证记录</small>
+                </a>
+              </div>
+              <p class="empty-state" id="emptyState" hidden>没有匹配的应用</p>
+            </section>
+
+            <section id="announcements" class="section-block" aria-labelledby="ann-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Company News</p>
+                  <h2 id="ann-title">公司公告</h2>
+                </div>
+                <a class="text-link" href="#">查看全部</a>
+              </div>
+              <div class="announcement-list">
+                <article>
+                  <time datetime="2026-05-24">05/24</time>
+                  <div>
+                    <strong>二季度经营复盘会议材料已发布</strong>
+                    <p>各部门可在知识库下载统一模板，并于周三 18:00 前完成数据补充。</p>
+                  </div>
+                </article>
+                <article>
+                  <time datetime="2026-05-23">05/23</time>
+                  <div>
+                    <strong>端午假期值班安排确认</strong>
+                    <p>行政服务台已开放值班申报入口，需跨区支持的团队请提前登记。</p>
+                  </div>
+                </article>
+                <article>
+                  <time datetime="2026-05-22">05/22</time>
+                  <div>
+                    <strong>新版费用报销规范试运行</strong>
+                    <p>交通、差旅、招待三类费用新增电子票据校验，请按新版流程提交。</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+
+          <aside class="side-column">
+            <section id="approvals" class="section-block compact" aria-labelledby="approval-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Approvals</p>
+                  <h2 id="approval-title">待办审批</h2>
+                </div>
+                <span class="badge">18</span>
+              </div>
+              <ul class="task-list">
+                <li>
+                  <span class="status urgent"></span>
+                  <div>
+                    <strong>采购合同审批</strong>
+                    <small>法务复核 · 剩余 2 小时</small>
+                  </div>
+                </li>
+                <li>
+                  <span class="status normal"></span>
+                  <div>
+                    <strong>差旅报销确认</strong>
+                    <small>财务共享 · 6 笔待处理</small>
+                  </div>
+                </li>
+                <li>
+                  <span class="status calm"></span>
+                  <div>
+                    <strong>员工转正流程</strong>
+                    <small>人力资源 · 3 人待确认</small>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <section id="schedule" class="section-block compact" aria-labelledby="schedule-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow" id="todayLabel">Today</p>
+                  <h2 id="schedule-title">今日日程</h2>
+                </div>
+              </div>
+              <div class="timeline">
+                <article>
+                  <time>09:30</time>
+                  <p>经营例会 · 线上会议室 A</p>
+                </article>
+                <article>
+                  <time>14:00</time>
+                  <p>产品上线评审 · 12F 共创室</p>
+                </article>
+                <article>
+                  <time>17:30</time>
+                  <p>部门周报提交截止</p>
+                </article>
+              </div>
+            </section>
+
+            <section id="support" class="support-panel" aria-labelledby="support-title">
+              <p class="eyebrow">Service Desk</p>
+              <h2 id="support-title">需要帮助？</h2>
+              <p>IT、行政、人事和财务服务统一受理，提交后自动分派到对应团队。</p>
+              <a class="primary-action full" href="#">新建服务请求</a>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
