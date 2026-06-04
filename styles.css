@@ -398,16 +398,58 @@ a {
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1.25fr 0.8fr 1fr 0.95fr;
-  grid-auto-rows: minmax(54px, 1fr);
+  grid-auto-rows: minmax(86px, 1fr);
   gap: 12px;
 }
 
-.dashboard-grid span {
-  min-height: 54px;
+.dashboard-card {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  min-height: 86px;
+  overflow: hidden;
+  padding: 14px;
   border: 1px solid #d8e5e9;
   border-radius: var(--radius);
   background: linear-gradient(180deg, #f8fbfc, #edf4f7);
-  animation: signal-pulse 4.8s ease-in-out infinite;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  animation: signal-pulse 8.6s ease-in-out infinite;
+}
+
+.dashboard-card::before {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--brand);
+  box-shadow: 0 0 0 4px rgba(11, 114, 109, 0.1);
+  content: "";
+}
+
+.dashboard-card span,
+.dashboard-card small {
+  position: relative;
+  z-index: 1;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.dashboard-card strong {
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.dashboard-card small {
+  align-self: end;
+  color: #6b7b89;
+  font-size: 11px;
 }
 
 .dashboard-grid .wide {
@@ -420,27 +462,96 @@ a {
   background: linear-gradient(180deg, #fff6ec, #f4e6d8);
 }
 
-.dashboard-grid span:nth-child(2) {
+.dashboard-card.status-good::after {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  height: 5px;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, var(--brand) 0 84%, rgba(11, 114, 109, 0.16) 84% 100%),
+    rgba(11, 114, 109, 0.16);
+  content: "";
+}
+
+.dashboard-card.alert-card::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(216, 123, 54, 0.13);
+}
+
+.dashboard-card.alert-card i,
+.dashboard-card.progress-card i {
+  position: absolute;
+  right: 14px;
+  bottom: 16px;
+  left: 14px;
+  height: 34px;
+  border-bottom: 2px solid rgba(216, 123, 54, 0.55);
+  border-left: 2px solid rgba(216, 123, 54, 0.22);
+  border-radius: 0 0 0 var(--radius);
+}
+
+.dashboard-card.alert-card i::before,
+.dashboard-card.alert-card i::after,
+.dashboard-card.progress-card i::before,
+.dashboard-card.progress-card i::after {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  content: "";
+}
+
+.dashboard-card.alert-card i::before {
+  right: 42%;
+  bottom: 8px;
+}
+
+.dashboard-card.alert-card i::after {
+  right: 10%;
+  bottom: 21px;
+}
+
+.dashboard-card.progress-card i {
+  height: 24px;
+  border-color: rgba(11, 114, 109, 0.38);
+}
+
+.dashboard-card.progress-card i::before {
+  right: 54%;
+  bottom: 6px;
+  background: var(--brand);
+}
+
+.dashboard-card.progress-card i::after {
+  right: 15%;
+  bottom: 15px;
+  background: var(--brand);
+}
+
+.dashboard-grid .dashboard-card:nth-child(2) {
   animation-delay: 180ms;
 }
 
-.dashboard-grid span:nth-child(3) {
+.dashboard-grid .dashboard-card:nth-child(3) {
   animation-delay: 360ms;
 }
 
-.dashboard-grid span:nth-child(4) {
+.dashboard-grid .dashboard-card:nth-child(4) {
   animation-delay: 540ms;
 }
 
-.dashboard-grid span:nth-child(5) {
+.dashboard-grid .dashboard-card:nth-child(5) {
   animation-delay: 720ms;
 }
 
-.dashboard-grid span:nth-child(6) {
+.dashboard-grid .dashboard-card:nth-child(6) {
   animation-delay: 900ms;
 }
 
-.dashboard-grid span:nth-child(7) {
+.dashboard-grid .dashboard-card:nth-child(7) {
   animation-delay: 1080ms;
 }
 
@@ -1053,14 +1164,22 @@ a {
 
   .dashboard-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 48px;
-    gap: 8px;
+    grid-auto-rows: minmax(92px, auto);
+    gap: 10px;
   }
 
   .dashboard-grid .wide,
   .dashboard-grid .tall {
     grid-column: auto;
     grid-row: auto;
+  }
+
+  .dashboard-card {
+    min-height: 92px;
+  }
+
+  .dashboard-card strong {
+    font-size: 22px;
   }
 
   .pipeline {
@@ -1121,6 +1240,10 @@ a {
   }
 
   .pipeline {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid {
     grid-template-columns: 1fr;
   }
 }
