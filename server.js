@@ -32,20 +32,23 @@ function checkHomepage() {
     ["id=\"news\"", "news section"],
     ["id=\"contact\"", "contact footer"],
     ["数珩科技", "company brand text"],
-    ["数据智能", "company positioning text"],
+    ["企业数据中枢", "company positioning text"],
     ["contact@shuheng.example", "company contact email"],
     ["产品服务", "service heading"],
     ["新闻动态", "news heading"],
     ["联系我们", "contact heading"],
-    ["动物协作信号", "animal visual lane"],
-    ["鹿形导航", "animal service accent"],
+    ["SH Portal Command Center", "portal visual panel"],
+    ["客户场景", "business scenario section"],
+    ["预约门户诊断", "portal diagnosis call to action"],
   ].forEach(([needle, label]) => assertIncludes(html, needle, label));
 
   [
     ".site-header",
     ".hero",
-    ".animal-lane",
+    ".portal-window",
+    ".dashboard-grid",
     ".service-grid",
+    ".scenario-section",
     ".news-list",
     "@media (max-width: 720px)",
   ].forEach((needle) => assertIncludes(css, needle, "responsive stylesheet"));
