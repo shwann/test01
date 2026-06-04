@@ -37,11 +37,14 @@ function checkHomepage() {
     ["产品服务", "service heading"],
     ["新闻动态", "news heading"],
     ["联系我们", "contact heading"],
+    ["动物协作信号", "animal visual lane"],
+    ["鹿形导航", "animal service accent"],
   ].forEach(([needle, label]) => assertIncludes(html, needle, label));
 
   [
     ".site-header",
     ".hero",
+    ".animal-lane",
     ".service-grid",
     ".news-list",
     "@media (max-width: 720px)",
