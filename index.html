@@ -72,6 +72,7 @@
                 <span>OK</span>
               </div>
             </div>
+<<<<<<< HEAD
             <div class="dashboard-grid" aria-hidden="true">
               <span class="wide"></span>
               <span></span>
@@ -81,6 +82,74 @@
               <span class="wide"></span>
               <span></span>
               <span></span>
+=======
+            <div class="portal-insights" aria-label="门户应用与事件流">
+              <div class="app-dock" aria-label="常用应用入口">
+                <span data-label="OA">审批</span>
+                <span data-label="BI">看板</span>
+                <span data-label="CRM">客户</span>
+                <span data-label="OPS">运维</span>
+                <span data-label="DOC">知识</span>
+              </div>
+              <div class="activity-feed" aria-label="实时事件">
+                <article>
+                  <strong>权限巡检</strong>
+                  <span>财务角色变更已复核</span>
+                </article>
+                <article>
+                  <strong>流程提醒</strong>
+                  <span>采购合同进入二级审批</span>
+                </article>
+                <article>
+                  <strong>数据任务</strong>
+                  <span>经营日报已同步到驾驶舱</span>
+                </article>
+              </div>
+            </div>
+            <div class="dashboard-grid" aria-label="门户运营状态">
+              <article class="dashboard-card wide status-good">
+                <span>待办任务</span>
+                <strong>128</strong>
+                <small>今日已流转 84%</small>
+              </article>
+              <article class="dashboard-card">
+                <span>系统健康</span>
+                <strong>99.9%</strong>
+                <small>12 个服务在线</small>
+              </article>
+              <article class="dashboard-card">
+                <span>数据同步</span>
+                <strong>18</strong>
+                <small>数据源稳定接入</small>
+              </article>
+              <article class="dashboard-card tall alert-card">
+                <span>风险预警</span>
+                <strong>6</strong>
+                <small>2 项进入复核</small>
+                <i aria-hidden="true"></i>
+              </article>
+              <article class="dashboard-card">
+                <span>审批流转</span>
+                <strong>4.2h</strong>
+                <small>平均处理时长</small>
+              </article>
+              <article class="dashboard-card wide progress-card">
+                <span>本周访问</span>
+                <strong>31,420</strong>
+                <small>移动端占比 57%</small>
+                <i aria-hidden="true"></i>
+              </article>
+              <article class="dashboard-card">
+                <span>知识更新</span>
+                <strong>42</strong>
+                <small>新增运营文档</small>
+              </article>
+              <article class="dashboard-card">
+                <span>消息触达</span>
+                <strong>96%</strong>
+                <small>关键通知确认率</small>
+              </article>
+>>>>>>> dev1
             </div>
             <div class="pipeline">
               <span>门户入口</span>
@@ -145,6 +214,28 @@
             <p>通过巡检、指标复盘、权限治理和版本迭代，让企业门户持续服务经营，而不是一次性项目。</p>
           </article>
         </div>
+        <div class="capability-map" aria-label="门户能力地图">
+          <div class="map-core">
+            <span>Portal Core</span>
+            <strong>统一工作台</strong>
+          </div>
+          <article class="map-node node-one">
+            <span>身份</span>
+            <strong>账号 · 权限 · 审计</strong>
+          </article>
+          <article class="map-node node-two">
+            <span>流程</span>
+            <strong>审批 · 任务 · 项目</strong>
+          </article>
+          <article class="map-node node-three">
+            <span>数据</span>
+            <strong>指标 · 报表 · 分析</strong>
+          </article>
+          <article class="map-node node-four">
+            <span>运营</span>
+            <strong>告警 · 巡检 · 复盘</strong>
+          </article>
+        </div>
       </section>
 
       <section class="section delivery-section" aria-label="交付路径">
@@ -194,6 +285,7 @@
               <li>多端门户体验</li>
               <li>内容运营后台</li>
             </ul>
+            <div class="service-signal" aria-hidden="true"><span style="--level: 88%"></span></div>
             <a href="#contact" aria-label="咨询统一门户建设">咨询方案</a>
           </article>
           <article class="service-card">
@@ -205,6 +297,7 @@
               <li>任务与项目联动</li>
               <li>消息通知集成</li>
             </ul>
+            <div class="service-signal" aria-hidden="true"><span style="--level: 76%"></span></div>
             <a href="#contact" aria-label="咨询智能协同平台">咨询方案</a>
           </article>
           <article class="service-card">
@@ -216,6 +309,7 @@
               <li>经营驾驶舱</li>
               <li>专题分析报告</li>
             </ul>
+            <div class="service-signal" aria-hidden="true"><span style="--level: 92%"></span></div>
             <a href="#contact" aria-label="咨询数据分析与运营">咨询方案</a>
           </article>
           <article class="service-card">
@@ -227,6 +321,7 @@
               <li>权限巡检治理</li>
               <li>应急响应预案</li>
             </ul>
+            <div class="service-signal" aria-hidden="true"><span style="--level: 81%"></span></div>
             <a href="#contact" aria-label="咨询可信运维服务">咨询方案</a>
           </article>
         </div>
@@ -251,6 +346,23 @@
             <strong>运维团队</strong>
             <span>监控系统状态、权限变化、安全告警和服务响应。</span>
           </article>
+        </div>
+        <div class="scenario-board" aria-label="角色协同路径">
+          <div class="board-column">
+            <span>01</span>
+            <strong>经营目标</strong>
+            <small>目标拆解到部门和项目</small>
+          </div>
+          <div class="board-column">
+            <span>02</span>
+            <strong>任务流转</strong>
+            <small>任务、审批、消息同步推进</small>
+          </div>
+          <div class="board-column">
+            <span>03</span>
+            <strong>数据复盘</strong>
+            <small>沉淀指标、异常和改进动作</small>
+          </div>
         </div>
       </section>
 
