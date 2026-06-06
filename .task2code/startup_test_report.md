@@ -2,76 +2,77 @@
 
 ## 结论
 
-未能完成完整的浏览器启动验收。项目自带结构检查通过，且静态检查确认首页未出现禁用文案 `数珩企业`；但 executor 环境禁止本地端口监听，`npm start` 无法启动到 `http://127.0.0.1:4173`，因此桌面端和移动端浏览器检查及截图未能完成。
+部分通过。`npm run check` 已通过，证明首页结构与静态资源检查通过；但启动计划要求的 `npm start` 在当前执行器中被端口监听权限阻止，无法完成 `http://127.0.0.1:4173` 的稳定浏览器冒烟验证与截图采集。
+
+主要阻塞错误：`listen EPERM: operation not permitted 127.0.0.1:4173`。
 
 ## 执行的启动命令
 
-- `npm run check`
-  - 结果：通过
-  - 关键输出：`Homepage structure check passed.`
+- 执行：`npm start`
+- 结果：失败
+- 输出要点：`Unable to start local server on http://127.0.0.1:4173`
+- 错误：`listen EPERM: operation not permitted 127.0.0.1:4173`
 
-- `npm start`
-  - 结果：失败
-  - 错误：`listen EPERM: operation not permitted 127.0.0.1:4173`
+补充尝试：
 
-- `HOST=localhost npm start`
-  - 结果：失败
-  - 错误：`listen EPERM: operation not permitted ::1:4173`
+- 执行：`HOST=0.0.0.0 PORT=4173 npm start`
+- 结果：失败
+- 错误：`listen EPERM: operation not permitted 0.0.0.0:4173`
 
-- `PORT=0 npm start`
-  - 结果：失败
-  - 错误：`listen EPERM: operation not permitted 127.0.0.1`
+补充静态检查：
+
+- 执行：`npm run check`
+- 结果：通过
+- 输出要点：`Homepage structure check passed.`
 
 ## 浏览器验证
 
+未能完整执行启动计划中的浏览器检查：
+
 - `home-desktop`：未完成
-  - 目标 URL：`http://127.0.0.1:4173`
-  - 原因：服务无法启动，本地监听被 executor 环境拦截。
-
 - `home-mobile`：未完成
-  - 目标 URL：`http://127.0.0.1:4173`
-  - 原因：服务无法启动，本地监听被 executor 环境拦截。
 
-- 替代验证：
-  - `index.html`、`styles.css`、`main.js` 静态检查通过，未发现 `数珩企业`。
-  - 首页文件中存在设计增强相关内容，例如 `SH Portal Command Center`、`客户场景`、`预约门户诊断`。
+原因：
+
+- 本地服务无法由本次验证流程成功启动，端口监听被执行器拒绝。
+- 内置 Browser 会话不可用：`Browser is not available: iab`。
+- 本地 Playwright 包不可用：`Cannot find package 'playwright'`。
+- Chrome/Safari 应用目录存在，但无法打开，返回 `kLSNoExecutableErr`。
+
+曾短暂观察到 `curl -I http://127.0.0.1:4173` 返回 `HTTP/1.1 200 OK`，但后续同地址连接失败，因此不能作为稳定通过证据。
 
 ## 截图和证据
 
-未能获取截图。原因如下：
+截图未能生成。
 
-- 项目服务无法监听 `127.0.0.1:4173`。
-- 内置浏览器会话不可用：`Browser is not available: iab`。
-- 本地 Playwright 不可用：`ERR_MODULE_NOT_FOUND`。
+已取得的证据：
 
-可用证据：
-
-- `npm run check` 通过。
-- 禁用文案检查通过：`数珩企业` 未出现在已检查产品文件中。
-- `grep` 证据显示首页包含 `数珩科技`、`SH Portal Command Center`、`客户场景`、`预约门户诊断` 等页面内容。
+- `npm run check` 通过，确认首页结构检查通过。
+- `npm start` 与 `HOST=0.0.0.0 PORT=4173 npm start` 均因执行器端口权限失败。
+- 浏览器工具链不可用，无法采集桌面/移动端截图，也无法验证无控制台错误、无页面错误、无横向溢出。
 
 ## 进程清理
 
-未发现需要清理的成功启动进程：
+本次没有成功启动需要清理的长期进程。
 
-- 所有 `npm start` 尝试均因 `EPERM` 直接退出。
-- `lsof -nP -iTCP:4173 -sTCP:LISTEN` 无监听输出。
-- `ps` 检查在当前 executor 中被限制：`operation not permitted`。
+清理确认：
+
+- `npm start` 尝试均已退出，未留下由本次命令启动的常驻会话。
+- 端口 `4173` 曾显示已有 `node` 进程监听 PID `48552`，但该进程不是本次 `npm start` 成功启动产生的进程，因此未停止它。
+
+## 未覆盖验收标准
+
+- AC-001：`# 首页布局乱了`
+- 未完全覆盖原因：浏览器启动验证与截图证据未能完成。
+- 已覆盖部分：静态首页结构检查通过。
 
 ## 风险和后续处理
 
-当前最大风险是浏览器验收未能执行，无法确认真实渲染、控制台错误、页面错误、水平溢出和截图效果。
+当前最大风险是缺少真实浏览器证据：无法确认桌面和移动端视口下是否无横向溢出、无控制台错误、无页面错误。
 
-建议在允许本地端口监听的环境中重新执行：
+建议在允许监听本地端口且浏览器工具可用的环境中重新执行：
 
-```bash
-npm start
-```
-
-然后访问：
-
-```text
-http://127.0.0.1:4173
-```
-
-并补做桌面端、移动端截图及控制台/水平溢出检查。
+- `npm start`
+- 访问 `http://127.0.0.1:4173`
+- 分别验证桌面和移动端视口
+- 采集截图作为最终验收证据
