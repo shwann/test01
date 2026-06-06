@@ -20,9 +20,24 @@ function assertIncludes(source, expected, label) {
   }
 }
 
+function assertNoConflictMarkers(source, label) {
+  ["<<<<<<<", "=======", ">>>>>>>"].forEach((marker) => {
+    if (source.includes(marker)) {
+      throw new Error(`${label} contains unresolved conflict marker: ${marker}`);
+    }
+  });
+}
+
 function checkHomepage() {
   const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
   const css = fs.readFileSync(path.join(root, "styles.css"), "utf8");
+  const js = fs.readFileSync(path.join(root, "main.js"), "utf8");
+
+  [
+    [html, "index.html"],
+    [css, "styles.css"],
+    [js, "main.js"],
+  ].forEach(([source, label]) => assertNoConflictMarkers(source, label));
 
   [
     ["<header class=\"site-header\">", "site header"],
@@ -38,6 +53,8 @@ function checkHomepage() {
     ["新闻动态", "news heading"],
     ["联系我们", "contact heading"],
     ["SH Portal Command Center", "portal visual panel"],
+    ["class=\"portal-insights\"", "portal insight panel"],
+    ["class=\"dashboard-card", "portal dashboard cards"],
     ["客户场景", "business scenario section"],
     ["预约门户诊断", "portal diagnosis call to action"],
   ].forEach(([needle, label]) => assertIncludes(html, needle, label));
@@ -46,7 +63,9 @@ function checkHomepage() {
     ".site-header",
     ".hero",
     ".portal-window",
+    ".portal-insights",
     ".dashboard-grid",
+    ".dashboard-card",
     ".service-grid",
     ".scenario-section",
     ".news-list",
